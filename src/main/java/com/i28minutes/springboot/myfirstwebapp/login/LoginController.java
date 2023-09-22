@@ -21,15 +21,13 @@ public class LoginController {
         return "login" ;
     }
 
-        @RequestMapping(value="/login", method = RequestMethod.POST)
+    @RequestMapping(value="/login", method = RequestMethod.POST)
     public String gotoWelcomePage(@RequestParam String name, @RequestParam String password, ModelMap model) {
         model.put("name", name) ;
-        model.put("password", password) ;
         if(authenticationService.authenticate(name, password)) {
             return "welcome" ;
-        }else {
-            return "login" ;
         }
+        model.put("errorMessage", "Invalid Credentials! Please try again.") ;
+        return "login" ;
     }
-
 }
